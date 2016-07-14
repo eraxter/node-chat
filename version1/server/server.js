@@ -55,14 +55,14 @@
         var room = client.handshake.query.room;
 
         clients.push(client);
-        console.log('client connected; clients = ' + clients.length);
+        console.log('client ' + name + ' connected; clients = ' + clients.length);
 
         if (!isNullOrEmpty(room)) {
             client.join(room, function () {
+                var users = getUsers(room);
                 // tell others in room a user has joined
                 client.to(room).emit('message', { message: name + ' has joined the chat' });
                 // tell others in room to update their user lists
-                var users = getUsers(room);
                 client.to(room).emit('users', users);
                 // tell the user that just joined who else is in the room
                 client.emit('users', users);
@@ -72,11 +72,13 @@
         client.on('disconnect', function () {
             clients.splice(clients.indexOf(client), 1);
             if (!isNullOrEmpty(room)) {
-                client.to(room).emit('message', { message: name + ' has left the chat' });
                 var users = getUsers(room);
+                // tell others in room a user has left
+                client.to(room).emit('message', { message: name + ' has left the chat' });
+                // tell others in room to update their user lists
                 client.to(room).emit('users', users);
             }
-            console.log('client disconnected; clients = ' + clients.length);
+            console.log('client ' + name + ' disconnected; clients = ' + clients.length);
         });
 
         client.on('message', function (data) {
