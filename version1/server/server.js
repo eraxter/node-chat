@@ -83,7 +83,18 @@
 
         client.on('message', function (data) {
             if (!isNullOrEmpty(data.to)) {
-                client.to(data.to == room ? room : '/#' + data.to).emit('message', data);
+                if (data.to == room) {
+                    // send a message to the room
+                    client.to(room).emit('message', data);
+                }
+                else {
+                    // send a private message to another user
+                    client.to('/#' + data.to).emit('message', data);
+                }
+            }
+            else {
+                // send a message to all connected clients
+                client.broadcast.emit('message', data);
             }
         });
 
