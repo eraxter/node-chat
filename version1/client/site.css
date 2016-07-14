@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 14px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.content {
+    width: 50%;
+    margin: 0 auto;
+}
+
+p.info,
+p.private {
+    font-style: italic;
+}
+
+p.private {
+    color: deeppink;
+}
+
+#chatWindow,
+#userWindow {
+    display: inline-block;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+#chatWindow {
+    height: 350px;
+    width: 70%;
+}
+
+#userWindow {
+    vertical-align: top;
+    height: 250px;
+    width: 20%;
+}
+
+#chatWindow p,
+#userWindow p {
+    margin: 0;
+    padding: 5px;
+    line-height: 1em;
+}
+
+#userWindow p {
+    cursor: pointer;
+}
+
+#userWindow p:hover {
+    background: #000;
+    color: #fff;
+}

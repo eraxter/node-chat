@@ -1,0 +1,17 @@
+<div class="content">
+    <h2>Now chatting in &quot;{{chat.user.room}}&quot;</h2>
+    <div>
+        <div id="chatWindow"></div>
+        <div id="userWindow" bn-user=""></div>
+    </div>
+    <br />
+    <form ng-submit="chat.send()">
+        <label>To:</label>
+        <select id="userSelect" ng-model="chat.to">
+            <option value="{{chat.user.room}}">All</option>
+        </select>
+        <input name="text" type="text" maxlength="50" required="required" ng-model="chat.text" />
+        <input name="submit" type="submit" value="Send" />
+        <input name="link" type="button" value="Link" ng-click="chat.insertLink()" />
+    </form>
+</div>
