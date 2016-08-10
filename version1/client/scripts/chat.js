@@ -32,7 +32,7 @@
             return name;
         };
 
-        var postMessage = function (data) {
+        var showMessage = function (data) {
             var name = '';
             var chatWindow = $('#chatWindow');
             if (!isNullOrEmpty(data.to)) {
@@ -71,17 +71,17 @@
 
         socket.on('connect', function () {
             console.log('connected to ' + socket.host);
-            postMessage({ message: 'joinging room ' + self.user.room + ' ...'})
+            showMessage({ message: 'joinging room ' + self.user.room + ' ...'})
             self.user.id = this.id
         });
 
         socket.on('disconnect', function () {
-            postMessage({ message: '<strong style="color:red">disconnected from server</strong>' });
+            showMessage({ message: '<strong style="color:red">disconnected from server</strong>' });
         });
 
         socket.on('users', showUsers);
 
-        socket.on('message', postMessage);
+        socket.on('message', showMessage);
 
 
         self.send = function () {
@@ -90,7 +90,7 @@
                 from: self.user.id,
                 message: self.text.trim()
             };
-            postMessage(data);
+            showMessage(data);
             socket.send('message', data);
             self.text = '';
         };

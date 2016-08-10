@@ -28,7 +28,7 @@
                     else
                         userSelect.val(userSelect.children().eq(0).val());
                     userSelect.change()
-            });
+                });
         	}
         	return { link: link };
         })

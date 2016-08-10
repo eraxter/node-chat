@@ -74,14 +74,14 @@ var Socket = (function () {
     };
 
     Socket.prototype.on =
-        Socket.prototype.receive = function (type, handler) {
-            try {
-                connection.on(type, handler);
-            }
-            catch (err) {
-                console.error(err);
-            }
-        };
+    Socket.prototype.receive = function (type, handler) {
+        try {
+            connection.on(type, handler);
+        }
+        catch (err) {
+            console.error(err);
+        }
+    };
 
     return Socket;
 
