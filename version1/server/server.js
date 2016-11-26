@@ -61,6 +61,9 @@
 
         }
 
+        clients.push(client);
+        console.log('client connected; clients = ' + clients.length);
+
         client.join(room, function () {
             var users = getUsers(room);
             //tell others in the room a user has joined
@@ -70,9 +73,6 @@
             //tell the new user who else is in the room
             client.emit('users', users);
         });
-
-        clients.push(client);
-        console.log('client connected; clients = ' + clients.length);
 
         client.on('disconnect', function () {
             clients.splice(clients.indexOf(client), 1);
