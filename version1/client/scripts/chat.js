@@ -1,17 +1,17 @@
 /**
- * Created by Erik on 2/5/2016.
+ * Created by Erik on 11/25/2016.
  */
 
 (function () {
     "use strict";
 
+    var isNullOrEmpty = function (str) {
+        return (typeof str == 'undefined' || str == null || str == '');
+    };
+
     var ChatController = function ($location, socket, user) {
 
         var self = this;
-
-        var isNullOrEmpty = function (str) {
-            return (typeof str == 'undefined' || str == null || str == '');
-        };
 
         if (isNullOrEmpty(user.name)) {
             $location.path('/');
@@ -21,86 +21,90 @@
         self.user = user;
         self.users = [];
         self.to = self.user.room;
-        self.text = "";
+        self.text = '';
 
-        var lookupName = function (id) {
+        self.lookupName = function (id) {
             var name = '';
             $.each(self.users, function () {
-                if (this.id == id)
+                if (this.id == id) {
                     name = this.name;
+                }
             });
             return name;
         };
 
-        var showMessage = function (data) {
+        self.showMessage = function (message) {
             var name = '';
+            var className = 'info';
             var chatWindow = $('#chatWindow');
-            if (!isNullOrEmpty(data.to)) {
-                if (data.to == self.user.room)
-                    name = (data.from == self.user.id) ? 'me: ' : lookupName(data.from) + ': ';
-                else if (data.to == self.user.id)
-                    name = '[from ' + lookupName(data.from) + ']: ';
-                else
-                    name = '[to ' + lookupName(data.to) + ']: ';
+
+            if (!isNullOrEmpty(message.to)) {
+                if (message.to == self.user.room) {
+                    name = (message.from == self.user.id) ? 'me: ' : self.lookupName(message.from) + ': ';
+                }
+                else if (message.to == self.user.id) {
+                    name = '[from ' + self.lookupName(message.from) + ']: ';
+                }
+                else {
+                    name = '[to ' + self.lookupName(message.to) + ']: ';
+                }
+                className = (message.to == self.user.room) ? 'public' : 'private';
             }
-            $('<p>')
-                .addClass(!isNullOrEmpty(data.to) ? (data.to == self.user.room ? 'public' : 'private') : 'info')
-                .html(name + data.message)
-                .appendTo(chatWindow);
+
+            $('<p>').addClass(className).html(name + message.text).appendTo(chatWindow);
             chatWindow.scrollTop(chatWindow[0].scrollHeight);
         };
 
-        var showUsers = function (users) {
+        self.showUsers = function (users) {
             self.users = users;
             var userWindow = $('#userWindow').html('');
+
             $('#userSelect').find('option[value!="' + self.user.room + '"]').remove();
+
             $.each(self.users, function () {
-                $('<p>')
-                    .attr('id', this.id)
-                    .html(this.id == self.user.id ? '&#9733;' + this.name + '&#9733;' : this.name)
-                    .appendTo('#userWindow');
+                if (this.name == self.user.name) {
+                    self.user.id = this.id;
+                    this.name = '&#9733;' + this.name + '';
+                }
+                $('<p>').attr('id', this.id).html(this.name).appendTo(userWindow);
                 if (this.id != self.user.id) {
-                    $('<option>')
-                        .attr('value', this.id)
-                        .html(this.name)
-                        .appendTo('#userSelect');
+                    $('<option>').attr('value', this.id).html(this.name).appendTo('#userSelect');
                 }
             });
+
             userWindow.find('#' + self.user.id).insertBefore(userWindow.children().eq(0));
         };
 
-        socket.on('connect', function () {
-            console.log('connected to ' + socket.host);
-            showMessage({ message: 'joinging room ' + self.user.room + ' ...'})
-            self.user.id = this.id
-        });
-
-        socket.on('disconnect', function () {
-            showMessage({ message: '<strong style="color:red">disconnected from server</strong>' });
-        });
-
-        socket.on('users', showUsers);
-
-        socket.on('message', showMessage);
-
-
         self.send = function () {
-            var data = {
+            var message = {
                 to: self.to,
                 from: self.user.id,
-                message: self.text.trim()
+                text: self.text.trim()
             };
-            showMessage(data);
-            socket.send('message', data);
+            self.showMessage(message);
+            socket.send('message', message);
             self.text = '';
         };
 
         self.insertLink = function () {
-            var text = !isNullOrEmpty(self.text) ? self.text : prompt('url:');
+            var text = (!isNullOrEmpty(self.text)) ? self.text.trim() : prompt('URL:');
             if (!isNullOrEmpty(text)) {
                 self.text = '<a href="' + text + '">' + text + '</a>';
             }
         };
+
+        socket.on('connect', function () {
+            //self.user.id = socket.getId();
+            self.showMessage({ text: 'joining the chat ...' });
+        });
+
+        socket.on('disconnect', function () {
+            self.showMessage({ text: '<strong style="color:red;">disconnected from server.</strong>' });
+        });
+
+        socket.on('message', self.showMessage);
+
+        socket.on('users', self.showUsers);
 
     };
 

@@ -1,5 +1,5 @@
 /**
- * Created by Erik on 2/5/2016.
+ * Created by Erik on 11/25/2016.
  */
 
 var Socket = (function () {
@@ -40,6 +40,10 @@ var Socket = (function () {
         return (connection != null && connection.connected == true);
     };
 
+    Socket.prototype.getId = function () {
+        return (connection != null && !isNullOrEmpty(connection.id)) ? connection.id : null;
+    };
+
     Socket.prototype.open = function (callback) {
         try {
             if (isNullOrEmpty(this.host)) {
@@ -74,14 +78,14 @@ var Socket = (function () {
     };
 
     Socket.prototype.on =
-    Socket.prototype.receive = function (type, handler) {
-        try {
-            connection.on(type, handler);
-        }
-        catch (err) {
-            console.error(err);
-        }
-    };
+        Socket.prototype.receive = function (type, handler) {
+            try {
+                connection.on(type, handler);
+            }
+            catch (err) {
+                console.error(err);
+            }
+        };
 
     return Socket;
 

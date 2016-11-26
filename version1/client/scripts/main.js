@@ -1,11 +1,11 @@
 /**
- * Created by Erik on 2/5/2016.
+ * Created by Erik on 11/25/2016.
  */
 
 (function () {
     "use strict";
 
-    var MainController = function ($location, socket, user) {
+    var MainController = (function ($location, socket, user) {
 
         var self = this;
 
@@ -17,7 +17,7 @@
             $location.path('/chat');
         };
 
-    };
+    });
 
     angular
         .module('socketChat')

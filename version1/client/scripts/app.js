@@ -1,5 +1,5 @@
 /**
- * Created by Erik on 2/5/2016.
+ * Created by Erik on 11/25/2016.
  */
 
 (function () {
@@ -19,20 +19,7 @@
                 })
                 .otherwise({ redirectTo: '/' });
         })
-        .directive('bnUser', function () {
-        	function link ($scope, elem, args) {
-                var userSelect = $('#userSelect');
-        		elem.on('click', 'p', function (e) {
-                    if (userSelect.find('option[value="' + e.target.id + '"]').length == 1)
-                        userSelect.val(e.target.id);
-                    else
-                        userSelect.val(userSelect.children().eq(0).val());
-                    userSelect.change()
-                });
-        	}
-        	return { link: link };
-        })
-        .service('socket', function () {
+        .factory('socket', function () {
             return new Socket('localhost:8081', { secure: true });
         })
         .factory('user', function () {
