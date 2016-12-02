@@ -35,7 +35,7 @@
             return { link: link };
         })
         .factory('socket', function () {
-            return new Socket('localhost:8081', { secure: true });
+            return new Socket('localhost:8081', { secure: false });
         })
         .factory('user', function () {
             return { id: '', name: '', room: 'test' };

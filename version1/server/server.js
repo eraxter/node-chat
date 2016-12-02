@@ -11,13 +11,13 @@
         pingInterval: 10000
     };
     var fs = require('fs');
+    /*
     var server = require('https').createServer({
-        key: fs.readFileSync('C:/certs/ERIKDEV.key'),
-        cert: fs.readFileSync('C:/certs/ERIKDEV.crt')
-    }, function (request, response) {
-        //response.writeHead(200);
-        //response.end('<h1>This is a test</h1>');
-    });
+        key: fs.readFileSync('C:/certs/server.key'),
+        cert: fs.readFileSync('C:/certs/server.crt')
+    }, function (request, response) {});
+    */
+    var server = require('http').createServer(function (request, response) {});
     var io = require('socket.io')(server, options);
     var clients = [];
 
