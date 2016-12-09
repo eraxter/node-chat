@@ -65,25 +65,27 @@
         console.log('client connected; clients = ' + clients.length);
 
         client.join(room, function () {
-            var users = getUsers(room);
-            //tell others in the room a user has joined
-            client.to(room).emit('message', { text: name + ' has joined the chat.' });
-            //tell others in the room to update their user lists
-            client.to(room).emit('users', users);
-            //tell the new user who else is in the room
-            client.emit('users', users);
+            setTimeout(function () {
+                var users = getUsers(room);
+                //tell others in the room a user has joined
+                client.to(room).emit('message', {text: name + ' has joined the chat.'});
+                //tell others in the room to update their user lists
+                client.to(room).emit('users', users);
+                //tell the new user who else is in the room
+                client.emit('users', users);
+            }, 300);
         });
 
         client.on('disconnect', function () {
             clients.splice(clients.indexOf(client), 1);
             console.log('client disconnected; client = ' + clients.length);
-            if (!isNullOrEmpty(room)) {
+            setTimeout(function () {
                 var users = getUsers(room);
                 //tell others in the room a user has left
                 client.to(room).emit('message', { text: name + ' has left the chat.' });
                 //tell others in the room to update their user list
                 client.to(room).emit('users', users);
-            }
+            }, 300);
         });
 
         client.on('message', function (message) {
@@ -102,6 +104,6 @@
     });
 
     server.listen(PORT);
-    console.log('Server is listening on port ' + PORT);
+    console.log('server is listening on port ' + PORT);
 
 })();
