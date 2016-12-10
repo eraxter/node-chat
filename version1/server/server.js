@@ -62,7 +62,7 @@
         }
 
         clients.push(client);
-        console.log('client connected; clients = ' + clients.length);
+        console.log('client ' + name + ' connected; clients = ' + clients.length);
 
         client.join(room, function () {
             setTimeout(function () {
@@ -78,7 +78,7 @@
 
         client.on('disconnect', function () {
             clients.splice(clients.indexOf(client), 1);
-            console.log('client disconnected; client = ' + clients.length);
+            console.log('client ' + name + ' disconnected; clients = ' + clients.length);
             setTimeout(function () {
                 var users = getUsers(room);
                 //tell others in the room a user has left
