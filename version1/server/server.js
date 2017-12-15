@@ -11,6 +11,7 @@
         pingInterval: 10000
     };
     var fs = require('fs');
+    var utils = require("./utils.js");
     /*
     var server = require('https').createServer({
         key: fs.readFileSync('C:/certs/server.key'),
@@ -20,16 +21,16 @@
     var server = require('http').createServer(function (request, response) {});
     var io = require('socket.io')(server, options);
     var clients = [];
-
+    /*
     var isNullOrEmpty = function (str) {
         return (typeof str == 'undefined' || str == null || str == '');
     };
-
+    */
     var getClients = function (room) {
-        if (!isNullOrEmpty(room)) {
+        if (!utils.isNullOrEmpty(room)) {
             return clients.filter(function (client) {
                 var name = client.handshake.query.name;
-                return (!isNullOrEmpty(client.rooms[room]) && !isNullOrEmpty(name));
+                return (!utils.isNullOrEmpty(client.rooms[room]) && !utils.isNullOrEmpty(name));
             });
         }
         return clients;
@@ -44,7 +45,7 @@
 
     var getUser = function (id) {
         var users = getUsers('/#' + id);
-        return (users.length == 1) ? users[0] : null;
+        return (users.length === 1) ? users[0] : null;
     };
 
     io.on('connection', function (client) {
@@ -53,11 +54,11 @@
         var name = client.handshake.query.name;
         var room = client.handshake.query.room;
 
-        if (isNullOrEmpty(name)) {
+        if (utils.isNullOrEmpty(name)) {
 
         }
 
-        if (isNullOrEmpty(room)) {
+        if (utils.isNullOrEmpty(room)) {
 
         }
 
@@ -89,8 +90,8 @@
         });
 
         client.on('message', function (message) {
-            if (!isNullOrEmpty(message.to)) {
-                if (message.to == room) {
+            if (!utils.isNullOrEmpty(message.to)) {
+                if (message.to === room) {
                     //send a message to the room
                     client.to(room).emit('message', message);
                 }

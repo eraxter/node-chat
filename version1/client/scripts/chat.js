@@ -6,7 +6,7 @@
     "use strict";
 
     var isNullOrEmpty = function (str) {
-        return (typeof str == 'undefined' || str == null || str == '');
+        return (typeof str === 'undefined' || str == null || str === '');
     };
 
     var ChatController = function ($location, socket, user) {
@@ -26,7 +26,7 @@
         self.lookupName = function (id) {
             var name = '';
             $.each(self.users, function () {
-                if (this.id == id) {
+                if (this.id === id) {
                     name = this.name;
                 }
             });
@@ -39,16 +39,16 @@
             var chatWindow = $('#chatWindow');
 
             if (!isNullOrEmpty(message.to)) {
-                if (message.to == self.user.room) {
-                    name = (message.from == self.user.id) ? 'me: ' : self.lookupName(message.from) + ': ';
+                if (message.to === self.user.room) {
+                    name = (message.from === self.user.id) ? 'me: ' : self.lookupName(message.from) + ': ';
                 }
-                else if (message.to == self.user.id) {
+                else if (message.to === self.user.id) {
                     name = '[from ' + self.lookupName(message.from) + ']: ';
                 }
                 else {
                     name = '[to ' + self.lookupName(message.to) + ']: ';
                 }
-                className = (message.to == self.user.room) ? 'public' : 'private';
+                className = (message.to === self.user.room) ? 'public' : 'private';
             }
 
             $('<p>').addClass(className).html(name + message.text).appendTo(chatWindow);
@@ -62,12 +62,12 @@
             $('#userSelect').find('option[value!="' + self.user.room + '"]').remove();
 
             $.each(self.users, function () {
-                if (this.name == self.user.name) {
+                if (this.name === self.user.name) {
                     self.user.id = this.id;
                     this.name = '&#9733;' + this.name + '';
                 }
                 $('<p>').attr('id', this.id).html(this.name).appendTo(userWindow);
-                if (this.id != self.user.id) {
+                if (this.id !== self.user.id) {
                     $('<option>').attr('value', this.id).html(this.name).appendTo('#userSelect');
                 }
             });

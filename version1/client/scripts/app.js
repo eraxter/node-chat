@@ -23,7 +23,7 @@
             var link = function ($scope, elem, args) {
                 var userSelect = $('#userSelect');
                 elem.on('click', 'p', function (e) {
-                    if (userSelect.find('option[value="' + e.target.id + '"]').length == 1) {
+                    if (userSelect.find('option[value="' + e.target.id + '"]').length === 1) {
                         userSelect.val(e.target.id);
                     }
                     else {

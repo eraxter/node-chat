@@ -8,7 +8,7 @@ var Socket = (function () {
     var connection = null;
 
     var isNullOrEmpty = function (str) {
-        return (typeof str == 'undefined' || str == null || str == '');
+        return (typeof str === 'undefined' || str == null || str === '');
     };
 
     function Socket(host, options) {
@@ -20,7 +20,7 @@ var Socket = (function () {
         this.host = host;
         this.options = options;
 
-        if (typeof io == 'undefined') {
+        if (typeof io === 'undefined') {
             this.injectClientScript();
         }
     }
@@ -29,7 +29,7 @@ var Socket = (function () {
 
         if (!isNullOrEmpty(this.host)) {
             var script = document.createElement('script');
-            script.src = (this.options.secure == true ? 'https://' : 'http://') +
+            script.src = (this.options.secure === true ? 'https://' : 'http://') +
                 this.host + (this.options.path || '/socket.io') + '/socket.io.js';
             document.getElementsByTagName('head')[0].appendChild(script);
         }
@@ -37,7 +37,7 @@ var Socket = (function () {
     };
 
     Socket.prototype.isConnected = function () {
-        return (connection != null && connection.connected == true);
+        return (connection != null && connection.connected === true);
     };
 
     Socket.prototype.getId = function () {
@@ -50,7 +50,7 @@ var Socket = (function () {
                 throw new Error('host is null or empty')
             }
             connection = io.connect(this.host, this.options);
-            if (typeof callback == 'function') {
+            if (typeof callback === 'function') {
                 callback(this);
             }
         }
