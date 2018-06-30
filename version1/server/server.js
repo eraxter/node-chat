@@ -12,13 +12,13 @@
     };
     var fs = require('fs');
     var utils = require("./utils.js");
-    /*
+    
     var server = require('https').createServer({
-        key: fs.readFileSync('C:/certs/server.key'),
-        cert: fs.readFileSync('C:/certs/server.crt')
+        key: fs.readFileSync('C:/certs/key.pem'),
+        cert: fs.readFileSync('C:/certs/cert.crt')
     }, function (request, response) {});
-    */
-    var server = require('http').createServer(function (request, response) {});
+    
+    //var server = require('http').createServer(function (request, response) {});
     var io = require('socket.io')(server, options);
     var clients = [];
     /*
