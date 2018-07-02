@@ -1,11 +1,12 @@
 {
   "name": "node-chat",
+  "version": "1.0.0",
   "description": "nodejs chat server",
+  "main": "server.js",
   "author": {
     "name": "Erik Raxter",
     "email": "erikrax@gmail.com"
   },
-  "main": "server.js",
   "dependencies": {
     "socket.io": "^2.1.1"
   }

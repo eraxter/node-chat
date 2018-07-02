@@ -1,9 +1,5 @@
-/**
- * Created by Erik on 11/25/2016.
- */
-
-var Socket = (function () {
-    "use strict";
+﻿var Socket = (function () {
+    'use strict';
 
     var connection = null;
 

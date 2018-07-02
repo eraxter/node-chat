@@ -1,3 +1,8 @@
+﻿html,
+body {
+    height: 100%;
+}
+
 body {
     font-family: Arial, Verdana, sans-serif;
     font-size: 14px;
@@ -21,37 +26,37 @@ p.private {
     color: deeppink;
 }
 
-#chatWindow,
-#userWindow {
+#ChatWindow,
+#UsersWindow {
     display: inline-block;
     border: 1px solid #ccc;
     overflow: hidden;
     overflow-y: auto;
 }
 
-#chatWindow {
+#ChatWindow {
     height: 350px;
     width: 70%;
 }
 
-#userWindow {
+#UsersWindow {
     vertical-align: top;
     height: 250px;
     width: 20%;
 }
 
-#chatWindow p,
-#userWindow p {
+#ChatWindow p,
+#UsersWindow p {
     margin: 0;
     padding: 5px;
     line-height: 1em;
 }
 
-#userWindow p {
+#UsersWindow p {
     cursor: pointer;
 }
 
-#userWindow p:hover {
+#UsersWindow p:hover {
     background: #000;
     color: #fff;
 }

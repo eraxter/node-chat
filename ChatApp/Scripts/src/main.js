@@ -1,9 +1,5 @@
-/**
- * Created by Erik on 11/25/2016.
- */
-
-(function () {
-    "use strict";
+﻿(function () {
+    'use strict';
 
     var MainController = (function ($location, socket, user) {
 
@@ -20,7 +16,7 @@
     });
 
     angular
-        .module('socketChat')
+        .module('nodeChat')
         .controller('MainController', ['$location', 'socket', 'user', MainController]);
 
 })();

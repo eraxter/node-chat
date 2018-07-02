@@ -1,25 +1,22 @@
-/**
- * Created by Erik on 11/25/2016.
- */
-
-(function () {
-    "use strict";
+﻿(function () {
+    'use strict';
 
     var isNullOrEmpty = function (str) {
-        return (typeof str === 'undefined' || str == null || str === '');
+        return (typeof str === 'undefined' || str === null || str === '');
     };
 
-    var ChatController = function ($location, socket, user) {
+    var ChatController = (function ($location, socket, user) {
 
         var self = this;
 
         if (isNullOrEmpty(user.name)) {
+            socket.close();
             $location.path('/');
             return;
         }
 
         self.user = user;
-        self.users = [];
+        self.users = new Array();
         self.to = self.user.room;
         self.text = '';
 
@@ -36,48 +33,49 @@
         self.showMessage = function (message) {
             var name = '';
             var className = 'info';
-            var chatWindow = $('#chatWindow');
+            var chatWindow = $('#ChatWindow');
 
-            if (!isNullOrEmpty(message.to)) {
-                if (message.to === self.user.room) {
-                    name = (message.from === self.user.id) ? 'me: ' : self.lookupName(message.from) + ': ';
-                }
-                else if (message.to === self.user.id) {
-                    name = '[from ' + self.lookupName(message.from) + ']: ';
-                }
-                else {
-                    name = '[to ' + self.lookupName(message.to) + ']: ';
-                }
-                className = (message.to === self.user.room) ? 'public' : 'private';
+            if (!isNullOrEmpty(message)) {
+                if (!isNullOrEmpty(message.to)) {
+                    if (message.to === self.user.room) {
+                        name = (message.from === self.user.id) ? 'me: ' : self.lookupName(message.from) + ': ';
+                    }
+                    else if (message.to === self.user.id) {
+                        name = '[from ' + self.lookupName(message.from) + ']: ';
+                    }
+                    else {
+                        name = '[to ' + self.lookupName(message.to) + ']: ';
+                    }
+                    className = (message.to === self.user.room) ? 'public' : 'private';
+                }                
+                $('<p>').addClass(className).html(name + message.text).appendTo(chatWindow);
+                chatWindow.scrollTop(chatWindow[0].scrollHeight);
             }
-
-            $('<p>').addClass(className).html(name + message.text).appendTo(chatWindow);
-            chatWindow.scrollTop(chatWindow[0].scrollHeight);
         };
 
         self.showUsers = function (users) {
             self.users = users;
-            var userWindow = $('#userWindow').html('');
+            var usersWindow = $('#UsersWindow').html('');
 
-            $('#userSelect').find('option[value!="' + self.user.room + '"]').remove();
+            $('#UserSelect').find('option[value!="' + self.user.room + '"]').remove();
 
             $.each(self.users, function () {
                 if (this.name === self.user.name) {
                     self.user.id = this.id;
                     this.name = '&#9733;' + this.name + '';
                 }
-                $('<p>').attr('id', this.id).html(this.name).appendTo(userWindow);
+                $('<p>').attr('id', this.id).html(this.name).appendTo(usersWindow);
                 if (this.id !== self.user.id) {
-                    $('<option>').attr('value', this.id).html(this.name).appendTo('#userSelect');
+                    $('<option>').attr('value', this.id).html(this.name).appendTo('#UserSelect')
                 }
             });
 
-            userWindow.find('#' + self.user.id).insertBefore(userWindow.children().eq(0));
+            usersWindow.find('#' + self.user.id).insertBefore(usersWindow.children().eq(0));
         };
 
         self.send = function () {
             var message = {
-                to: self.to,
+                to: self.to || $('#UserSelect').val(),
                 from: self.user.id,
                 text: self.text.trim()
             };
@@ -86,15 +84,12 @@
             self.text = '';
         };
 
-        self.insertLink = function () {
-            var text = (!isNullOrEmpty(self.text)) ? self.text.trim() : prompt('URL:');
-            if (!isNullOrEmpty(text)) {
-                self.text = '<a href="' + text + '">' + text + '</a>';
-            }
+        self.leave = function () {
+            socket.close();
+            $location.path('/');
         };
 
         socket.on('connect', function () {
-            //self.user.id = socket.getId();
             self.showMessage({ text: 'joining the chat ...' });
         });
 
@@ -106,10 +101,10 @@
 
         socket.on('users', self.showUsers);
 
-    };
+    });
 
     angular
-        .module('socketChat')
+        .module('nodeChat')
         .controller('ChatController', ['$location', 'socket', 'user', ChatController]);
 
 })();
