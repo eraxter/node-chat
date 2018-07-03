@@ -15,33 +15,7 @@
         }
 
         self.user = $user;
-        self.users = new Array();
-        self.to = self.user.room;
-        self.text = '';
-
-        self.showMessage = function (message) {
-
-        };
-
-        self.listUsers = function (users) {
-
-        };
-
-        self.leaveChat = function () {
-            $socket.close();
-            $location.path('/');
-        };
-
-        $socket.on('connect', function () {
-
-        });
-
-        $socket.on('disconnect', function () {
-
-        });
-
-        $socket.on('message', self.showMessage);
-
-        $socket.on('users', self.listUsers);
+        
+        
     }
 })();

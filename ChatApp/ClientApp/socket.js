@@ -3,10 +3,6 @@
 
     var connection = null;
 
-    var isNullOrEmpty = function (str) {
-        return (typeof str === 'undefined' || str == null || str === '');
-    };
-
     function Socket(host, options) {
         if (!(this instanceof Socket)) {
             return new Socket(host, options);
@@ -23,7 +19,7 @@
 
     Socket.prototype.injectClientScript = function () {
 
-        if (!isNullOrEmpty(this.host) && !isNullOrEmpty(this.options)) {
+        if (this.host && this.options) {
             var script = document.createElement('script');
             script.src = (this.options.secure === true ? 'https://' : 'http://') +
                 this.host + (this.options.path || '/socket.io') + '/socket.io.js';
@@ -33,22 +29,19 @@
     };
 
     Socket.prototype.isConnected = function () {
-        return (connection != null && connection.connected === true);
+        return connection && connection.connected;
     };
 
     Socket.prototype.getId = function () {
-        return (connection != null && !isNullOrEmpty(connection.id)) ? connection.id : null;
+        return connection && connection.id ? connection.id : null;
     };
 
-    Socket.prototype.open = function (callback) {
+    Socket.prototype.open = function () {
         try {
-            if (isNullOrEmpty(this.host)) {
-                throw new Error('host is null or empty')
+            if (!this.host) {
+                throw new Error('missing host')
             }
             connection = io.connect(this.host, this.options);
-            if (typeof callback === 'function') {
-                callback(this);
-            }
         }
         catch (err) {
             console.error(err);
@@ -73,15 +66,14 @@
         }
     };
 
-    Socket.prototype.on =
-        Socket.prototype.receive = function (type, handler) {
-            try {
-                connection.on(type, handler);
-            }
-            catch (err) {
-                console.error(err);
-            }
-        };
+    Socket.prototype.on = function (type, handler) {
+        try {
+            connection.on(type, handler);
+        }
+        catch (err) {
+            console.error(err);
+        }
+    };
 
     return Socket;
 

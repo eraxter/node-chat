@@ -61,7 +61,7 @@ io.on('connection', function (client) {
 
     client.on('disconnect', function () {
         clients.splice(clients.indexOf(client), 1);
-        console.log('client  ' + name + ' disconnected, # clients = ' + clients.length);
+        console.log('client ' + name + ' disconnected, # clients = ' + clients.length);
         setTimeout(function () {
             var users = getUsers(room);
             // tell others in the room a user has left
