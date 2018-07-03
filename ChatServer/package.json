@@ -1,7 +1,7 @@
 {
   "name": "socket-chat",
   "version": "1.0.0",
-  "description": "socket chat server",
+  "description": "socket.io chat server",
   "main": "server.js",
   "author": {
     "name": "Erik Raxter",

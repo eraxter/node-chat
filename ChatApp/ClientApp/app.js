@@ -7,11 +7,11 @@
             $routeProvider
                 .when('/', {
                     controller: 'MainController as main',
-                    templateUrl: 'ClientApp/templates/main.html'
+                    templateUrl: '/ClientApp/main.html'
                 })
                 .when('/chat', {
                     controller: 'ChatController as chat',
-                    templateUrl: 'ClientApp/templates/chat.html'
+                    templateUrl: '/ClientApp/chat.html'
                 })
                 .otherwise({ redirectTo: '/' });
         })
@@ -19,6 +19,6 @@
             return new Socket('localhost:8081', { secure: true });
         })
         .factory('$user', function () {
-            return { id: '', name: '', room: 'test' };
+            return { id: '', name: '', room: 'testing' };
         });
 })();

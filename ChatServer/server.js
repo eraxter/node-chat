@@ -20,75 +20,61 @@ var io = require('socket.io')(server, options);
 
 var clients = new Array();
 
-var isNullOrEmpty = function (str) {
-    return (typeof str === 'undefined' || str === null || str === '');
-};
-
-var getUsers = function (room) {
-    if (!isNullOrEmpty(room)) {
-        var users = clients.filter(function (client) {
-            return (!isNullOrEmpty(client.rooms[room]) && !isNullOrEmpty(client.handshake.query.name));
-        });
-        return users.map(function (user) {
-            return { id: user.id, name: user.handshake.query.name };
+var getClients = function (room) {
+    if (room) {
+        return clients.filter(function (client) {
+            return (client.rooms[room] && client.handshake.query.name)
         });
     }
     return clients;
 };
 
+var getUsers = function (room) {
+    var users = getClients(room);
+    return users.map(function (user) {
+        return { id: user.id, name: user.handshake.query.name };
+    });
+};
+
 io.on('connection', function (client) {
-    var id = client.id;
     var name = client.handshake.query.name;
     var room = client.handshake.query.room;
 
-    if (isNullOrEmpty(name)) {
-        return;
-    }
-
-    if (isNullOrEmpty(room)) {
+    if (!name || !room) {
         return;
     }
 
     clients.push(client);
-
-    console.log('client ' + name + ' connected; # clients = ' + clients.length);
+    console.log('client ' + name + ' connected, # clients = ' + clients.length);
 
     client.join(room, function () {
         setTimeout(function () {
             var users = getUsers(room);
             // tell others in the room a user has joined
-            client.to(room).emit('message', { text: name + ' has joined the chat.' });
+            client.to(room).emit('message', { to: room, text: name + ' has joined the chat' });
             // tell others in the room to update their user lists
             client.to(room).emit('users', users);
             // tell the new user who else is in the room
             client.emit('users', users);
-        }, 300);
+        }, 500);
     });
 
     client.on('disconnect', function () {
         clients.splice(clients.indexOf(client), 1);
-
-        console.log('client ' + name + ' disconnected; # clients = ' + clients.length);
-
+        console.log('client  ' + name + ' disconnected, # clients = ' + clients.length);
         setTimeout(function () {
             var users = getUsers(room);
             // tell others in the room a user has left
-            client.to(room).emit('message', { text: name + ' has left the chat.' });
+            client.to(room).emit('message', { to: room, text: name + ' has left the chat' });
             // tell others in the room to update their user list
             client.to(room).emit('users', users);
-        }, 300);
+        }, 500);
     });
 
     client.on('message', function (message) {
-        if (!isNullOrEmpty(message)) {
-            if (message.to === room) {
-                // send a message to the room
-                client.to(room).emit('message', message);
-            }
-            else {
-                // send a private message to another user
-                client.to(message.to).emit('message', message);
-            }
+        if (message && message.to) {
+            // send a message
+            client.to(message.to).emit('message', message);
         }
     });
 });
