@@ -4,27 +4,27 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="form-row">
-                <div class="col-8">
+                <div class="col-md-8">
                     <div id="ChatWindow"></div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4">
                     <div id="UsersWindow"></div>
                 </div>
             </div>
             <br />
             <div class="form-row">
-                <div class="col-2">
+                <div class="col-md-2">
                     <select id="UserSelect" class="form-control" name="to">
                         <option value="{{chat.user.room}}">All</option>
                     </select>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <input class="form-control" name="text" type="text" maxlength="50" required="required" ng-model="chat.text" />
                 </div>
-                <div class="col-2">
+                <div class="col-md-2">
                     <button type="submit" class="btn btn-primary">Send Message</button>
                 </div>
-                <div class="col-2">
+                <div class="col-md-2">
                     <button type="button" class="btn btn-danger" ng-click="chat.leaveChat()">Leave Chat</button>
                 </div>
             </div>
