@@ -51,7 +51,7 @@ io.on('connection', function (client) {
         setTimeout(function () {
             var users = getUsers(room);
             // tell others in the room a user has joined
-            client.to(room).emit('message', { to: room, text: name + ' has joined the chat' });
+            client.to(room).emit('message', { text: name + ' has joined the chat' });
             // tell others in the room to update their user lists
             client.to(room).emit('users', users);
             // tell the new user who else is in the room
@@ -65,7 +65,7 @@ io.on('connection', function (client) {
         setTimeout(function () {
             var users = getUsers(room);
             // tell others in the room a user has left
-            client.to(room).emit('message', { to: room, text: name + ' has left the chat' });
+            client.to(room).emit('message', { text: name + ' has left the chat' });
             // tell others in the room to update their user list
             client.to(room).emit('users', users);
         }, 500);

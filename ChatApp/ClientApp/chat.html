@@ -1,7 +1,33 @@
-﻿<h1 class="text-center">{{chat.user.room}}</h1>
-<div>
-    <div id="ChatWindow"></div>
-    <div id="UsersWindow"></div>
-</div>
-<form>
+﻿<h1 class="text-center">&quot;{{chat.user.room}}&quot;</h1>
+
+<form ng-submit="chat.sendMessage()">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="form-row">
+                <div class="col-8">
+                    <div id="ChatWindow"></div>
+                </div>
+                <div class="col-4">
+                    <div id="UsersWindow"></div>
+                </div>
+            </div>
+            <br />
+            <div class="form-row">
+                <div class="col-2">
+                    <select id="UserSelect" class="form-control" name="to">
+                        <option value="{{chat.user.room}}">All</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <input class="form-control" name="text" type="text" maxlength="50" required="required" ng-model="chat.text" />
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-danger" ng-click="chat.leaveChat()">Leave Chat</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>

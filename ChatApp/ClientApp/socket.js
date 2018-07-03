@@ -29,11 +29,10 @@
     };
 
     Socket.prototype.isConnected = function () {
-        return connection && connection.connected;
-    };
-
-    Socket.prototype.getId = function () {
-        return connection && connection.id ? connection.id : null;
+        if (connection !== null) {
+            return connection.connected;
+        }
+        return false;
     };
 
     Socket.prototype.open = function () {

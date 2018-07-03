@@ -10,8 +10,13 @@
     function MainController($location, $socket, $user) {
         var self = this;
 
-        self.user = $user;
+        function connect() {
+            if (self.user.name && self.user.room) {
+                $location.path('/chat');
+            }
+        }
 
-        
+        self.user = $user;
+        self.connect = connect;
     }
 })();

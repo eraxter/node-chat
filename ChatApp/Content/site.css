@@ -11,7 +11,10 @@
 }
 
 #ChatWindow, #UsersWindow {
-
+    border: 1px solid #CCC;
+    height: 540px;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 #ChatWindow {
