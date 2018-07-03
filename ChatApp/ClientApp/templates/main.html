@@ -1,0 +1,14 @@
+﻿<h1>Welcome!</h1>
+<form style="text-align:center;" ng-submit="main.connect()">
+    <p>
+        <label>Name:</label>
+        <input name="name" type="text" maxlength="20" required="required" ng-model="main.user.name" />
+    </p>
+    <p>
+        <label>Room:</label>
+        <input name="room" type="text" maxlength="20" required="required" ng-model="main.user.room" />
+    </p>
+    <p>
+        <input name="submit" type="submit" value="Connect" />
+    </p>
+</form>
