@@ -52,11 +52,11 @@ io.on('connection', function (client) {
             var users = getUsers(room);
             // tell others in the room a user has joined
             client.to(room).emit('message', { text: name + ' has joined the chat' });
-            // tell others in the room to update their user lists
+            // tell others in the room to update their user list
             client.to(room).emit('users', users);
             // tell the new user who else is in the room
             client.emit('users', users);
-        }, 500);
+        }, 300);
     });
 
     client.on('disconnect', function () {
@@ -68,7 +68,7 @@ io.on('connection', function (client) {
             client.to(room).emit('message', { text: name + ' has left the chat' });
             // tell others in the room to update their user list
             client.to(room).emit('users', users);
-        }, 500);
+        }, 300);
     });
 
     client.on('message', function (message) {

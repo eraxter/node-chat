@@ -81,7 +81,7 @@
                 from: self.user.id,
                 text: self.text.trim()
             };
-            if ($socket && msg.text) {
+            if (msg.to && msg.text) {
                 $socket.send('message', msg);
                 showMessage(msg);
                 self.text = '';
@@ -114,7 +114,6 @@
 
         $socket.on('users', listUsers);
 
-        //self.to = $user.room;
         self.text = '';
         self.user = $user;
         self.users = new Array();
