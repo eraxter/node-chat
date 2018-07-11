@@ -17,14 +17,6 @@
     overflow-y: auto;
 }
 
-#ChatWindow {
-
-}
-
-#UsersWindow {
-
-}
-
 #ChatWindow p, #UsersWindow p {
     line-height: 1em;
     margin: 0;

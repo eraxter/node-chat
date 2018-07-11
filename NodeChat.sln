@@ -1,37 +1,37 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27703.2035
+VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{38D95538-9CC4-4AA4-AEE4-092BC2F2D016}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2069CF22-3E6A-4446-AFB0-5DD0E4710DE8}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ChatApp", "ChatApp\", "{12B9C7A6-48B2-4AF5-8230-C72498D8E799}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ChatApp", "ChatApp\", "{A48464A5-33CC-4BB2-91A0-66E0CF02DE18}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_50540"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_63370"
 		Debug.AspNetCompiler.PhysicalPath = "ChatApp\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50540\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_63370\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_50540"
+		Release.AspNetCompiler.VirtualPath = "/localhost_63370"
 		Release.AspNetCompiler.PhysicalPath = "ChatApp\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50540\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_63370\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "50540"
+		VWDPort = "63370"
 		SlnRelativePath = "ChatApp\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "ChatServer", "ChatServer\ChatServer.njsproj", "{F3472312-84B6-4A00-A6B1-BDDB739AF900}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "ChatServer", "ChatServer\ChatServer.njsproj", "{59389463-EBAB-480D-A591-8E945F682ADD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,19 +39,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{12B9C7A6-48B2-4AF5-8230-C72498D8E799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{12B9C7A6-48B2-4AF5-8230-C72498D8E799}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{12B9C7A6-48B2-4AF5-8230-C72498D8E799}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{12B9C7A6-48B2-4AF5-8230-C72498D8E799}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{F3472312-84B6-4A00-A6B1-BDDB739AF900}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F3472312-84B6-4A00-A6B1-BDDB739AF900}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F3472312-84B6-4A00-A6B1-BDDB739AF900}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F3472312-84B6-4A00-A6B1-BDDB739AF900}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A48464A5-33CC-4BB2-91A0-66E0CF02DE18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A48464A5-33CC-4BB2-91A0-66E0CF02DE18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A48464A5-33CC-4BB2-91A0-66E0CF02DE18}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{A48464A5-33CC-4BB2-91A0-66E0CF02DE18}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{59389463-EBAB-480D-A591-8E945F682ADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59389463-EBAB-480D-A591-8E945F682ADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59389463-EBAB-480D-A591-8E945F682ADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59389463-EBAB-480D-A591-8E945F682ADD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {F1872871-0478-4E48-8A05-441D486875D3}
+		SolutionGuid = {7026083D-1F11-4FAC-A6F5-D818DA79DFD9}
 	EndGlobalSection
 EndGlobal

@@ -1,12 +1,6 @@
 ﻿(function () {
     'use strict';
 
-    angular
-        .module('socketChat')
-        .controller('ChatController', ChatController);
-
-    ChatController.$inject = ['$location', '$socket', '$user'];
-
     function ChatController($location, $socket, $user) {
         var self = this;
 
@@ -20,6 +14,47 @@
                 });
             }
             return name;
+        }
+
+        function leaveChat() {
+            $socket.close();
+            $location.path('/');
+        }
+
+        function listUsers(users) {
+            var userSelect = $('#UserSelect');
+            var usersWindow = $('#UsersWindow');
+
+            if (users) {
+                self.users = users;
+                usersWindow.html('');
+                userSelect.find('option[value!="' + self.user.room + '"]').remove();
+
+                $.each(self.users, function () {
+                    var username = this.name;
+                    if (this.id === self.user.id) {
+                        username = '&#9733;' + username;
+                    }
+
+                    $('<p>').attr('id', this.id).html(username).appendTo(usersWindow);
+                    $('<option>').attr('value', this.id).html(this.name).appendTo(userSelect);
+                });
+
+                userSelect.find('option[value="' + self.user.id + '"]').remove();
+            }
+        }
+
+        function sendMessage() {
+            var message = {
+                to: $('#UserSelect').val(),
+                from: self.user.id,
+                text: self.text.trim()
+            };
+            if (message.to && message.text) {
+                $socket.send('message', message);
+                showMessage(message);
+                self.text = '';
+            }
         }
 
         function showMessage(message) {
@@ -52,47 +87,6 @@
             }
         }
 
-        function listUsers(users) {
-            var userSelect = $('#UserSelect');
-            var usersWindow = $('#UsersWindow');
-
-            if (users) {
-                self.users = users;
-                usersWindow.html('');
-                userSelect.find('option[value!="' + self.user.room + '"]').remove();
-
-                $.each(self.users, function () {
-                    var username = this.name;
-                    if (this.id === self.user.id) {
-                        username = '&#9733;' + username;
-                    }
-
-                    $('<p>').attr('id', this.id).html(username).appendTo(usersWindow);
-                    $('<option>').attr('value', this.id).html(this.name).appendTo(userSelect);
-                });
-
-                userSelect.find('option[value="' + self.user.id + '"]').remove();
-            }
-        }
-
-        function sendMessage() {
-            var msg = {
-                to: $('#UserSelect').val(),
-                from: self.user.id,
-                text: self.text.trim()
-            };
-            if (msg.to && msg.text) {
-                $socket.send('message', msg);
-                showMessage(msg);
-                self.text = '';
-            }
-        }
-
-        function leaveChat() {
-            $socket.close();
-            $location.path('/');
-        }
-
         if (!$socket || !$user.name || !$user.room) {
             $location.path('/');
             return;
@@ -103,16 +97,16 @@
 
         $socket.on('connect', function () {
             self.user.id = this.id;
-            showMessage({ text: '<strong>welcome to the chat!</strong>' })
+            showMessage({ text: '<strong>welcome to the chat!</strong>' });
         });
 
         $socket.on('disconnect', function () {
             showMessage({ text: '<strong style="color:red;">disconnected from server</strong>' });
         });
 
-        $socket.on('message', showMessage);
-
         $socket.on('users', listUsers);
+
+        $socket.on('message', showMessage);
 
         self.text = '';
         self.user = $user;
@@ -120,4 +114,10 @@
         self.leaveChat = leaveChat;
         self.sendMessage = sendMessage;
     }
+
+    ChatController.$inject = ['$location', '$socket', '$user'];
+
+    angular
+        .module('socketChat')
+        .controller('ChatController', ChatController);
 })();

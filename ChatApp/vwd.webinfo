@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0"?>
 <!-- Visual Studio global web project settings. -->
 <VisualWebDeveloper>
-  <iisExpressSettings sslPort="44369" windowsAuthentication="disabled" anonymousAuthentication="enabled" useClassicPipelineMode="false"/>
+  <iisExpressSettings sslPort="44351" windowsAuthentication="disabled" anonymousAuthentication="enabled" useClassicPipelineMode="false"/>
 </VisualWebDeveloper>
