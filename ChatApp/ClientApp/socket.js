@@ -37,7 +37,7 @@
     Socket.prototype.open = function () {
         try {
             if (!this.host) {
-                throw new Error('missing host')
+                throw new Error('missing host');
             }
             connection = io.connect(this.host, this.options);
         }
