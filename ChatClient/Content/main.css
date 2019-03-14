@@ -9,3 +9,35 @@
 .private {
     color: deeppink;
 }
+
+#chatWindow, 
+#userWindow {
+    border: 1px solid gray;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+#chatWindow p,
+#userWindow p {
+    line-height: 1rem;
+    margin: 0;
+    padding: 5px;
+}
+
+#chatWindow {
+    height: 200px;
+}
+
+#userWindow {
+    height: 100px;
+}
+
+@media (min-width: 576px) {
+    #chatWindow {
+        height: 200px;
+    }
+
+    #userWindow {
+        height: 200px;
+    }
+}

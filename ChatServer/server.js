@@ -1,6 +1,6 @@
 'use strict';
 
-var port = 8081;
+var port = process.env.port || 8081;
 var options = {
     transports: ['polling', 'websocket'],
     pingInterval: 10000
@@ -20,17 +20,13 @@ var io = require('socket.io')(server, options);
 
 var clients = new Array();
 
-var getClients = function (room) {
+var getUsers = function (room) {
+    var users = clients;
     if (room) {
-        return clients.filter(function (client) {
-            return (client.rooms[room] && client.handshake.query.name);
+        users = clients.filter(function (client) {
+            return typeof client.rooms[room] !== 'undefined';
         });
     }
-    return clients;
-};
-
-var getUsers = function (room) {
-    var users = getClients(room);
     return users.map(function (user) {
         return { id: user.id, name: user.handshake.query.name };
     });

@@ -19,15 +19,32 @@
             return name;
         };
 
-        var listUsers = function (users) {
+        var showUsers = function (users) {
+            var userList = $('#userList');
+            var userWindow = $('#userWindow');
+
             if (users) {
                 self.users = users;
+                userWindow.html('');
+                userList.find('option[value!="' + self.user.room + '"]').remove();
+
+                $.each(self.users, function () {
+                    var username = this.name;
+                    if (this.id === self.user.id) {
+                        username = '&#9733;' + username;
+                    }
+
+                    $('<p>').attr('id', this.id).html(username).appendTo(userWindow);
+                    $('<option>').attr('value', this.id).html(this.name).appendTo(userList);
+                });
+
+                userList.find('option[value="' + self.user.id + '"]').remove();
             }
         };
 
         var sendMessage = function () {
             var message = {
-                to: '',
+                to: $('#userList').val(),
                 from: self.user.id,
                 text: self.text.trim()
             };
@@ -39,6 +56,8 @@
         };
 
         var showMessage = function (message) {
+            var chatWindow = $('#chatWindow');
+
             if (message) {
                 var className = !message.to ? 'info' : message.to === self.user.room ? 'public' : 'private';
                 var msg = message.text;
@@ -61,7 +80,8 @@
                     }
                 }
 
-                $('<p>').addClass(className).html(msg);
+                $('<p>').addClass(className).html(msg).appendTo(chatWindow);
+                chatWindow.scrollTop(chatWindow[0].scrollHeight);
             }
         };
 
@@ -79,10 +99,10 @@
         });
 
         $socket.on('disconnect', function () {
-            showMessage({ text: '<strong style="color:red;">disconnected from server</strong>' });
+            showMessage({ text: '<strong class="text-danger">disconnected from server</strong>' });
         });
 
-        $socket.on('users', listUsers);
+        $socket.on('users', showUsers);
 
         $socket.on('message', showMessage);
 
