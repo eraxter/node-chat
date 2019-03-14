@@ -4,49 +4,30 @@
     function ChatController($location, $socket, $user) {
         var self = this;
 
-        function lookupName(id) {
-            var name = '';
-            if (self.users) {
-                $.each(self.users, function () {
-                    if (this.id === id) {
-                        name = this.name;
-                    }
-                });
-            }
-            return name;
-        }
-
-        function leaveChat() {
+        var leaveChat = function () {
             $socket.close();
             $location.path('/');
-        }
+        };
 
-        function listUsers(users) {
-            var userSelect = $('#UserSelect');
-            var usersWindow = $('#UsersWindow');
+        var lookupName = function (id) {
+            var name = '';
+            $.each(self.users, function () {
+                if (this.id === id) {
+                    name = this.name;
+                }
+            });
+            return name;
+        };
 
+        var listUsers = function (users) {
             if (users) {
                 self.users = users;
-                usersWindow.html('');
-                userSelect.find('option[value!="' + self.user.room + '"]').remove();
-
-                $.each(self.users, function () {
-                    var username = this.name;
-                    if (this.id === self.user.id) {
-                        username = '&#9733;' + username;
-                    }
-
-                    $('<p>').attr('id', this.id).html(username).appendTo(usersWindow);
-                    $('<option>').attr('value', this.id).html(this.name).appendTo(userSelect);
-                });
-
-                userSelect.find('option[value="' + self.user.id + '"]').remove();
             }
-        }
+        };
 
-        function sendMessage() {
+        var sendMessage = function () {
             var message = {
-                to: $('#UserSelect').val(),
+                to: '',
                 from: self.user.id,
                 text: self.text.trim()
             };
@@ -55,11 +36,9 @@
                 showMessage(message);
                 self.text = '';
             }
-        }
+        };
 
-        function showMessage(message) {
-            var chatWindow = $('#ChatWindow');
-
+        var showMessage = function (message) {
             if (message) {
                 var className = !message.to ? 'info' : message.to === self.user.room ? 'public' : 'private';
                 var msg = message.text;
@@ -82,10 +61,9 @@
                     }
                 }
 
-                $('<p>').addClass(className).html(msg).appendTo(chatWindow);
-                chatWindow.scrollTop(chatWindow[0].scrollHeight);
+                $('<p>').addClass(className).html(msg);
             }
-        }
+        };
 
         if (!$socket || !$user.name || !$user.room) {
             $location.path('/');

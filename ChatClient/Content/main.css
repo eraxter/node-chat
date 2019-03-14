@@ -1,0 +1,11 @@
+﻿body {
+}
+
+.info,
+.private {
+    font-style: italic;
+}
+
+.private {
+    color: deeppink;
+}

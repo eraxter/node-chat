@@ -3,7 +3,7 @@
 
     var connection = null;
 
-    function Socket(host, options) {
+    var Socket = function (host, options) {
         if (!(this instanceof Socket)) {
             return new Socket(host, options);
         }
@@ -14,31 +14,22 @@
         this.options = options;
 
         if (typeof io === 'undefined') {
-            this.injectClientScript();
+            this.injectScript();
         }
-    }
+    };
 
-    Socket.prototype.injectClientScript = function () {
+    Socket.prototype.injectScript = function () {
         if (this.host && this.options) {
             var script = document.createElement('script');
-            script.src = (this.options.secure === true ? 'https://' : 'http://') +
+            script.type = 'text/javascript';
+            script.src = (this.options.secure ? 'https://' : 'http:/') +
                 this.host + (this.options.path || '/socket.io') + '/socket.io.js';
             document.getElementsByTagName('head')[0].appendChild(script);
         }
     };
 
-    Socket.prototype.isConnected = function () {
-        if (connection !== null) {
-            return connection.connected;
-        }
-        return false;
-    };
-
     Socket.prototype.open = function () {
         try {
-            if (!this.host) {
-                throw new Error('missing host');
-            }
             connection = io.connect(this.host, this.options);
         }
         catch (err) {

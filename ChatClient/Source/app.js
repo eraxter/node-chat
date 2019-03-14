@@ -7,11 +7,11 @@
             $routeProvider
                 .when('/', {
                     controller: 'MainController as main',
-                    templateUrl: '/ClientApp/main.html'
+                    templateUrl: '/Views/main.html'
                 })
                 .when('/chat', {
                     controller: 'ChatController as chat',
-                    templateUrl: '/ClientApp/chat.html'
+                    templateUrl: '/Views/chat.html'
                 })
                 .otherwise({ redirectTo: '/' });
         })

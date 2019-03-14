@@ -4,11 +4,11 @@
     function MainController($location, $socket, $user) {
         var self = this;
 
-        function connect() {
+        var connect = function () {
             if (self.user.name && self.user.room) {
                 $location.path('/chat');
             }
-        }
+        };
 
         self.user = $user;
         self.connect = connect;

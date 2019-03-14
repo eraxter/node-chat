@@ -261,5 +261,5 @@ __pycache__/
 *.pyc
 
 # Other
-ChatApp/Scripts/
-ChatApp/Content/bootstrap*
+ChatClient/Scripts/
+ChatClient/Content/bootstrap*
