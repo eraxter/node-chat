@@ -1,7 +1,6 @@
 ﻿(function () {
     'use strict';
-
-    function ChatController($location, $socket, $user) {
+    var ChatController = function ($location, $socket, $user) {
         var self = this;
 
         var leaveChat = function () {
@@ -12,41 +11,18 @@
         var lookupName = function (id) {
             var name = '';
             $.each(self.users, function () {
-                if (this.id === id) {
+                if (id === this.id) {
                     name = this.name;
                 }
             });
             return name;
         };
 
-        var showUsers = function (users) {
-            var userList = $('#userList');
-            var userWindow = $('#userWindow');
-
-            if (users) {
-                self.users = users;
-                userWindow.html('');
-                userList.find('option[value!="' + self.user.room + '"]').remove();
-
-                $.each(self.users, function () {
-                    var username = this.name;
-                    if (this.id === self.user.id) {
-                        username = '&#9733;' + username;
-                    }
-
-                    $('<p>').attr('id', this.id).html(username).appendTo(userWindow);
-                    $('<option>').attr('value', this.id).html(this.name).appendTo(userList);
-                });
-
-                userList.find('option[value="' + self.user.id + '"]').remove();
-            }
-        };
-
         var sendMessage = function () {
             var message = {
                 to: $('#userList').val(),
                 from: self.user.id,
-                text: self.text.trim()
+                text: self.text
             };
             if (message.to && message.text) {
                 $socket.send('message', message);
@@ -85,12 +61,27 @@
             }
         };
 
+        var showUsers = function (users) {
+            var userList = $('#userList');
+
+            if (users) {
+                self.users = users;
+                userList.find('option[value!="' + self.user.room + '"]').remove();
+                $.each(self.users, function () {
+                    if (self.user.id !== this.id) {
+                        $('<option>').attr('value', this.id).html(this.name).appendTo(userList);
+                    }
+                });
+            }
+        };
+
         if (!$socket || !$user.name || !$user.room) {
             $location.path('/');
             return;
         }
 
         $socket.options.query = 'name=' + $user.name + '&room=' + $user.room;
+
         $socket.open();
 
         $socket.on('connect', function () {
@@ -99,22 +90,19 @@
         });
 
         $socket.on('disconnect', function () {
-            showMessage({ text: '<strong class="text-danger">disconnected from server</strong>' });
+            showMessage({ text: '<strong class="text-danger">disconnected from server!</strong>' });
         });
-
-        $socket.on('users', showUsers);
 
         $socket.on('message', showMessage);
 
+        $socket.on('users', showUsers);
+        
         self.text = '';
         self.user = $user;
         self.users = new Array();
         self.leaveChat = leaveChat;
         self.sendMessage = sendMessage;
-    }
-
-    ChatController.$inject = ['$location', '$socket', '$user'];
-
+    };
     angular
         .module('socketChat')
         .controller('ChatController', ChatController);

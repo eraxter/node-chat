@@ -1,7 +1,6 @@
 ﻿(function () {
     'use strict';
-
-    function MainController($location, $socket, $user) {
+    var MainController = function ($location, $socket, $user) {
         var self = this;
 
         var connect = function () {
@@ -12,10 +11,7 @@
 
         self.user = $user;
         self.connect = connect;
-    }
-
-    MainController.$inject = ['$location', '$socket', '$user'];
-
+    };
     angular
         .module('socketChat')
         .controller('MainController', MainController);
