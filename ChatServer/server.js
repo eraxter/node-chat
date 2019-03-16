@@ -1,12 +1,11 @@
 'use strict';
+var fs = require('fs');
+var port = process.env.PORT || 8081;
 
-var port = process.env.port || 8081;
 var options = {
     transports: ['polling', 'websocket'],
     pingInterval: 10000
 };
-
-var fs = require('fs');
 
 var server = require('https').createServer({
     cert: fs.readFileSync('C:/certs/cert.crt'),
@@ -41,30 +40,14 @@ io.on('connection', function (client) {
     }
 
     clients.push(client);
-    console.log('client ' + name + ' connected, # clients = ' + clients.length);
-
-    client.join(room, function () {
-
-        var users = getUsers(room);
-        // tell others in the room a user has joined
-        client.to(room).emit('message', { text: name + ' has joined the chat' });
-        // tell others in the room to update their user list
-        client.to(room).emit('users', users);
-        // tell the new user who else is in the room
-        client.emit('users', users);
-
-    });
 
     client.on('disconnect', function () {
         clients.splice(clients.indexOf(client), 1);
-        console.log('client ' + name + ' disconnected, # clients = ' + clients.length);
-
-        var users = getUsers(room);
         // tell others in the room a user has left
-        client.to(room).emit('message', { text: name + ' has left the chat' });
+        client.to(room).emit('message', { text: name + ' has left the chat.' });
         // tell others in the room to update their user list
+        var users = getUsers(room);
         client.to(room).emit('users', users);
-
     });
 
     client.on('message', function (message) {
@@ -72,6 +55,16 @@ io.on('connection', function (client) {
             // send a message
             client.to(message.to).emit('message', message);
         }
+    });
+
+    client.join(room, function () {
+        // tell others in the room a user has joined
+        client.to(room).emit('message', { text: name + ' has joined the chat.' });
+        // tell others in the room to update their user list
+        var users = getUsers(room);
+        client.to(room).emit('users', users);
+        // tell the new user who else is in the room
+        client.emit('users', users);
     });
 });
 
