@@ -1,18 +1,17 @@
 ﻿<h1 class="text-center">Welcome!</h1>
-
-<form ng-submit="main.connect()">
+<form ng-submit="connect()">
     <div class="row justify-content-center">
-        <div class="form-group col-sm-2">
-            <input type="text" id="txtName" class="form-control" placeholder="Name" maxlength="20" required="required" ng-model="main.user.name" />
+        <div class="form-group col-md-2">
+            <input type="text" id="txtName" class="form-control" placeholder="Name" maxlength="20" required="required" ng-model="user.name" />
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="form-group col-sm-2">
-            <input type="text" id="txtRoom" class="form-control" placeholder="Room" maxlength="20" required="required" ng-model="main.user.room" />
+        <div class="form-group col-md-2">
+            <input type="text" id="txtRoom" class="form-control" placeholder="Room" maxlength="20" required="required" ng-model="user.room" />
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="form-group col-sm-2">
+        <div class="form-group col-md-2">
             <button type="submit" id="btnConnect" class="btn btn-block btn-primary">Connect</button>
         </div>
     </div>

@@ -1,5 +1,5 @@
 ﻿body {
-    font: normal 14px 'Trebuchet MS', sans-serif;
+    font: normal 16px 'Trebuchet MS', sans-serif;
 }
 
 .info,
@@ -25,4 +25,8 @@
 
 #chatWindow {
     height: 200px;
+}
+
+#userWindow {
+    height: 100px;
 }
