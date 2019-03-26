@@ -20,7 +20,7 @@ angular
         var showMessage = function (message) {
             var chatWindow = $('#chatWindow');
             if (message) {
-                var className = typeof message.to === 'undefined' ? 'info' : message.to === $user.room ? 'public' : 'private';
+                var className = message.to ? message.to === $user.room ? 'public' : 'private' : 'info';
                 var msg = message.text;
                 if (className === 'public') {
                     if (message.from === $user.id) {
