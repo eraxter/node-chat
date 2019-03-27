@@ -47,7 +47,7 @@ Socket.prototype.on = function (event, handler) {
     }
 };
 
-Socket.prototype.send = function (type, data) {
+Socket.prototype.emit = function (type, data) {
     try {
         if (this.connection !== null) {
             this.connection.emit(type, data);

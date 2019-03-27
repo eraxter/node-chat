@@ -34,30 +34,30 @@ io.on('connection', function (client) {
 
     if (!name || !room) {
         client.disconnect(true);
-        return;
     }
+    else {
+        clients.push(client);
 
-    clients.push(client);
+        client.on('disconnect', function () {
+            clients.splice(clients.indexOf(client), 1);
+            client.to(room).emit('message', { text: name + ' has left the chat.' });
+            var users = getClients(room);
+            client.to(room).emit('users', users);
+        });
 
-    client.on('disconnect', function () {
-        clients.splice(clients.indexOf(client), 1);
-        client.to(room).emit('message', { text: name + ' has left the chat.' });
-        var users = getClients(room);
-        client.to(room).emit('users', users);
-    });
+        client.on('message', function (message) {
+            if (message && message.to) {
+                client.to(message.to).emit('message', message);
+            }
+        });
 
-    client.on('message', function (message) {
-        if (message && message.to) {
-            client.to(message.to).emit('message', message);
-        }
-    });
-
-    client.join(room, function () {
-        client.to(room).emit('message', { text: name + ' has joined the chat.' });
-        var users = getClients(room);
-        client.to(room).emit('users', users);
-        client.emit('users', users);
-    });
+        client.join(room, function () {
+            client.to(room).emit('message', { text: name + ' has joined the chat.' });
+            var users = getClients(room);
+            client.to(room).emit('users', users);
+            client.emit('users', users);
+        });
+    }
 });
 
 server.listen(port);

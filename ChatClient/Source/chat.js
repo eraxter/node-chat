@@ -73,7 +73,7 @@ angular
                 text: $scope.text
             };
             if (message.to && message.text) {
-                $socket.send('message', message);
+                $socket.emit('message', message);
                 showMessage(message);
                 $scope.text = '';
             }
