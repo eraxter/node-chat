@@ -7,7 +7,7 @@
         <div id="userWindow" class="window"></div>
     </div>
 </div>
-<form class="row justify-content-center" ng-submit="sendMessage()">
+<div class="row justify-content-center">
     <div class="form-group col-md-2">
         <select id="userList" class="form-control">
             <option value="{{user.room}}">All</option>
@@ -17,9 +17,9 @@
         <input type="text" id="txtChat" class="form-control" placeholder="Type here to chat" maxlength="1000" required="required" ng-model="text" />
     </div>
     <div class="form-group col-md-2">
-        <button type="submit" id="btnSend" class="btn btn-block btn-primary">Send</button>
+        <button type="button" id="btnSend" class="btn btn-block btn-primary" ng-click="sendMessage()">Send</button>
     </div>
     <div class="form-group col-md-2">
         <button type="button" id="btnLeave" class="btn btn-block btn-danger" ng-click="leaveChat()">Leave</button>
     </div>
-</form>
+</div>

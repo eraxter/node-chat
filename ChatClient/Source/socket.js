@@ -4,6 +4,10 @@ var Socket = function (host, options) {
     this.options = options || {};
     this.connection = null;
 
+    if (host.indexOf(':') < 0) {
+        this.host = host + ':' + (this.options.port || 8081);
+    }
+
     if (typeof io === 'undefined') {
         this.injectScript();
     }
@@ -36,10 +40,10 @@ Socket.prototype.close = function () {
     }
 };
 
-Socket.prototype.on = function (event, handler) {
+Socket.prototype.emit = function (type, data) {
     try {
         if (this.connection !== null) {
-            this.connection.on(event, handler);
+            this.connection.emit(type, data);
         }
     }
     catch (err) {
@@ -47,10 +51,10 @@ Socket.prototype.on = function (event, handler) {
     }
 };
 
-Socket.prototype.emit = function (type, data) {
+Socket.prototype.on = function (event, handler) {
     try {
         if (this.connection !== null) {
-            this.connection.emit(type, data);
+            this.connection.on(event, handler);
         }
     }
     catch (err) {

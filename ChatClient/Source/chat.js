@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 angular
     .module('socketChat')
     .controller('ChatController', function ($scope, $location, $socket, $user) {
@@ -19,9 +19,11 @@ angular
 
         var showMessage = function (message) {
             var chatWindow = $('#chatWindow');
+
             if (message) {
                 var className = message.to ? message.to === $user.room ? 'public' : 'private' : 'info';
                 var msg = message.text;
+
                 if (className === 'public') {
                     if (message.from === $user.id) {
                         msg = 'me: ' + msg;
@@ -38,6 +40,7 @@ angular
                         msg = '[to ' + lookupName(message.to) + ']: ' + msg;
                     }
                 }
+
                 $('<p>').addClass(className).html(msg).appendTo(chatWindow);
                 chatWindow.scrollTop(chatWindow[0].scrollHeight);
             }
@@ -46,26 +49,30 @@ angular
         var showUsers = function (users) {
             var userList = $('#userList');
             var userWindow = $('#userWindow');
+
             if (users) {
                 $scope.users = users;
                 userList.find('option[value!="' + $user.room + '"]').remove();
                 userWindow.html('');
                 $.each($scope.users, function () {
                     $('<p>').html(this.name).appendTo(userWindow);
+
                     if ($user.id !== this.id) {
                         $('<option>').attr('value', this.id).html(this.name).appendTo(userList);
                     }
                 });
             }
         };
-        
+
         $scope.text = '';
         $scope.user = $user;
-        $scope.users = new Array();
+        $scope.users = [];
+
         $scope.leaveChat = function () {
             $socket.close();
             $location.path('/');
         };
+
         $scope.sendMessage = function () {
             var message = {
                 to: $('#userList').val(),
