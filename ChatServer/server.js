@@ -14,13 +14,13 @@ var server = require('https').createServer({
 
 var io = require('socket.io')(server, options);
 
-var clients = new Array();
+var clients = [];
 
 var getClients = function (room) {
     var ca = clients;
     if (room) {
         ca = clients.filter(function (client) {
-            return typeof client.rooms[room] !== 'undefined';
+            return room === client.handshake.query.room;
         });
     }
     return ca.map(function (client) {

@@ -4,8 +4,7 @@
   "description": "socket.io chat server",
   "main": "server.js",
   "author": {
-    "name": "Erik Raxter",
-    "email": "erikrax@gmail.com"
+    "name": "Erik Raxter"
   },
   "dependencies": {
     "socket.io": "^2.2.0"
