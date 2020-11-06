@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+
+<html ng-app="socketChat">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Socket Chat</title>
+    @Styles.Render("~/styles/main")
+    @Scripts.Render("~/scripts/angular", "~/scripts/app")
+</head>
+<body>
+    <div class="container">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/scripts/bootstrap")
+</body>
+</html>
