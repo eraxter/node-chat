@@ -108,7 +108,7 @@
     <Content Include="Content\css\bootstrap-reboot.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
-    <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\site.css" />
     <Content Include="Content\html\chat.html" />
     <Content Include="Content\html\main.html" />
     <Content Include="Global.asax" />
@@ -122,8 +122,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\chat\app.js" />
-    <Content Include="Scripts\chat\chat.js" />
-    <Content Include="Scripts\chat\main.js" />
     <Content Include="Scripts\chat\socket.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />

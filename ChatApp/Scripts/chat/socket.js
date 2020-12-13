@@ -14,10 +14,9 @@ var Socket = function (host, options) {
 };
 
 Socket.prototype.injectScript = function () {
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = (this.options.secure ? 'https://' : 'http://') + this.host + (this.options.path || '/socket.io') + '/socket.io.js';
-    document.getElementsByTagName('head')[0].appendChild(script);
+    var s = document.createElement('script');
+    s.src = (this.options.secure ? 'https://' : 'http://') + this.host + (this.options.path || '/socket.io') + '/socket.io.js';
+    document.getElementsByTagName('head')[0].appendChild(s);
 };
 
 Socket.prototype.open = function () {

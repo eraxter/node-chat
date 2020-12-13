@@ -1,8 +1,4 @@
-﻿body {
-    font: normal 16px 'Trebuchet MS', sans-serif;
-}
-
-.info,
+﻿.info,
 .private {
     font-style: italic;
 }
@@ -12,7 +8,7 @@
 }
 
 .window {
-    border: 1px solid gray;
+    border: 2px solid gray;
     overflow: hidden;
     overflow-y: auto;
 }
@@ -21,12 +17,4 @@
     line-height: 1rem;
     margin: 0;
     padding: 5px;
-}
-
-#chatWindow {
-    height: 200px;
-}
-
-#userWindow {
-    height: 100px;
 }
