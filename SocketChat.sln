@@ -12,7 +12,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "ChatServer", "ChatServer\ChatServer.njsproj", "{2F1A0444-BDD1-43DD-9C60-FA71AF65F9AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApp", "ChatApp\ChatApp.csproj", "{604D1507-515D-4672-965D-0D2D1693BCF3}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ChatSite", "ChatSite\", "{1A5823A9-1DA2-4905-A1F0-CB318799AAFB}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_53616"
+		Debug.AspNetCompiler.PhysicalPath = "ChatSite\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53616\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_53616"
+		Release.AspNetCompiler.PhysicalPath = "ChatSite\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53616\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "53616"
+		SlnRelativePath = "ChatSite\"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,10 +43,10 @@ Global
 		{2F1A0444-BDD1-43DD-9C60-FA71AF65F9AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F1A0444-BDD1-43DD-9C60-FA71AF65F9AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F1A0444-BDD1-43DD-9C60-FA71AF65F9AF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{604D1507-515D-4672-965D-0D2D1693BCF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{604D1507-515D-4672-965D-0D2D1693BCF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{604D1507-515D-4672-965D-0D2D1693BCF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{604D1507-515D-4672-965D-0D2D1693BCF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A5823A9-1DA2-4905-A1F0-CB318799AAFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A5823A9-1DA2-4905-A1F0-CB318799AAFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A5823A9-1DA2-4905-A1F0-CB318799AAFB}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A5823A9-1DA2-4905-A1F0-CB318799AAFB}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

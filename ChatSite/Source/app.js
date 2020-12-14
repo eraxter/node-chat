@@ -23,12 +23,14 @@ angular
 angular
     .module('socketChat')
     .controller('MainController', function ($scope, $location, $user, $socket) {
-        $scope.user = $user;
-        $scope.connect = function () {
+        var connect = function () {
             if ($user.name && $user.room) {
                 $location.path('/chat');
             }
         };
+
+        $scope.user = $user;
+        $scope.connect = connect;
     });
 
 angular
@@ -55,11 +57,13 @@ angular
 
         var lookupName = function (id) {
             var name = '';
+
             $.each($scope.users, function () {
                 if (this.id === id) {
                     name = this.name;
                 }
             });
+
             return name;
         };
 
@@ -69,10 +73,11 @@ angular
                 from: $user.id,
                 text: $scope.text
             };
+
             if (message.to && message.text) {
+                $scope.text = '';
                 $socket.emit('message', message);
                 showMessage(message);
-                $scope.text = '';
             }
         };
 
@@ -80,10 +85,10 @@ angular
             var chatWindow = $('#chatWindow');
 
             if (message) {
-                var className = message.to ? message.to === $user.room ? 'public' : 'private' : 'info';
+                var cn = message.to ? message.to === $user.room ? 'public' : 'private' : 'info';
                 var msg = message.text;
 
-                if (className == 'public') {
+                if (cn == 'public') {
                     if (message.from === $user.id) {
                         msg = 'me: ' + msg;
                     }
@@ -91,7 +96,7 @@ angular
                         msg = lookupName(message.from) + ': ' + msg;
                     }
                 }
-                else if (className == 'private') {
+                else if (cn == 'private') {
                     if (message.to === $user.id) {
                         msg = '[from ' + lookupName(message.from) + ']: ' + msg;
                     }
@@ -100,7 +105,7 @@ angular
                     }
                 }
 
-                $('<p>').addClass(className).html(msg).appendTo(chatWindow);
+                $('<p>').addClass(cn).html(msg).appendTo(chatWindow);
                 chatWindow.scrollTop(chatWindow[0].scrollHeight);
             }
         };
@@ -111,14 +116,16 @@ angular
 
             if (users) {
                 $scope.users = users;
+
                 userList.find('option[value!="' + $user.room + '"]').remove();
                 userWindow.html('');
-                $.each($scope.users, function () {
-                    $('<p>').html(this.name).appendTo(userWindow);
 
+                $.each($scope.users, function () {
                     if (this.id !== $user.id) {
                         $('<option>').attr('value', this.id).html(this.name).appendTo(userList);
                     }
+
+                    $('<p>').html(this.name).appendTo(userWindow);
                 });
             }
         };

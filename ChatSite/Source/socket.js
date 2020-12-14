@@ -9,11 +9,11 @@ var Socket = function (host, options) {
     }
 
     if (typeof io === 'undefined') {
-        this.injectScript();
+        this.injectClient();
     }
 };
 
-Socket.prototype.injectScript = function () {
+Socket.prototype.injectClient = function () {
     var s = document.createElement('script');
     s.src = (this.options.secure ? 'https://' : 'http://') + this.host + (this.options.path || '/socket.io') + '/socket.io.js';
     document.getElementsByTagName('head')[0].appendChild(s);
@@ -30,7 +30,7 @@ Socket.prototype.open = function () {
 
 Socket.prototype.close = function () {
     try {
-        if (this.connection !== null) {
+        if (this.connection != null) {
             this.connection.close();
         }
     }
@@ -41,7 +41,7 @@ Socket.prototype.close = function () {
 
 Socket.prototype.emit = function (type, data) {
     try {
-        if (this.connection !== null) {
+        if (this.connection != null) {
             this.connection.emit(type, data);
         }
     }
@@ -52,7 +52,7 @@ Socket.prototype.emit = function (type, data) {
 
 Socket.prototype.on = function (event, handler) {
     try {
-        if (this.connection !== null) {
+        if (this.connection != null) {
             this.connection.on(event, handler);
         }
     }
