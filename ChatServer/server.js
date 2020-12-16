@@ -16,11 +16,13 @@ var io = require('socket.io')(server, options);
 var clients = [];
 var getClients = function (room) {
     var ca = clients;
+
     if (room) {
         ca = clients.filter(function (socket) {
             return socket.rooms.has(room);
         });
     }
+
     return ca.map(function (socket) {
         return { id: socket.id, name: socket.handshake.query.name };
     });
