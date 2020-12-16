@@ -11,7 +11,9 @@ angular
                 controller: 'ChatController',
                 templateUrl: '/Content/html/chat.html'
             })
-            .otherwise({ redirectTo: '/' });
+            .otherwise({
+                redirectTo: '/'
+            });
     })
     .factory('$user', function () {
         return { id: '', name: '', room: 'testing' };
@@ -122,7 +124,7 @@ angular
 
                 $.each($scope.users, function () {
                     if (this.id !== $user.id) {
-                        $('<option>').attr('value', this.id).html(this.name).appendTo(userList);
+                        $('<option>').val(this.id).html(this.name).appendTo(userList);
                     }
 
                     $('<p>').html(this.name).appendTo(userWindow);

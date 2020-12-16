@@ -1,11 +1,11 @@
 ﻿'use strict';
 var Socket = function (host, options) {
-    this.host = host;
+    this.host = host || 'localhost';
     this.options = options || {};
     this.connection = null;
 
-    if (host.indexOf(':') < 0) {
-        this.host = host + ':' + (this.options.port || 8081);
+    if (this.host.indexOf(':') < 0) {
+        this.host = this.host + ':' + (this.options.port || 8081);
     }
 
     if (typeof io === 'undefined') {
@@ -14,9 +14,9 @@ var Socket = function (host, options) {
 };
 
 Socket.prototype.injectClient = function () {
-    var s = document.createElement('script');
-    s.src = (this.options.secure ? 'https://' : 'http://') + this.host + (this.options.path || '/socket.io') + '/socket.io.js';
-    document.getElementsByTagName('head')[0].appendChild(s);
+    var script = document.createElement('script');
+    script.src = (this.options.secure ? 'https://' : 'http://') + this.host + (this.options.path || '/socket.io') + '/socket.io.js';
+    document.getElementsByTagName('head')[0].appendChild(script);
 };
 
 Socket.prototype.open = function () {
