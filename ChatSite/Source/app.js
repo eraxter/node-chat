@@ -4,11 +4,11 @@ angular
     .config(function ($routeProvider) {
         $routeProvider
             .when('/', {
-                controller: 'MainController',
+                controller: 'mainController',
                 templateUrl: '/Content/html/main.html'
             })
             .when('/chat', {
-                controller: 'ChatController',
+                controller: 'chatController',
                 templateUrl: '/Content/html/chat.html'
             })
             .otherwise({
@@ -19,12 +19,9 @@ angular
         return { id: '', name: '', room: 'testing' };
     })
     .factory('$socket', function () {
-        return new Socket(window.location.hostname, { secure: true });
-    });
-
-angular
-    .module('socketChat')
-    .controller('MainController', function ($scope, $location, $user, $socket) {
+        return new Socket(window.location.hostname);
+    })
+    .controller('mainController', function ($scope, $location, $user, $socket) {
         var connect = function () {
             if ($user.name && $user.room) {
                 $location.path('/chat');
@@ -33,11 +30,8 @@ angular
 
         $scope.user = $user;
         $scope.connect = connect;
-    });
-
-angular
-    .module('socketChat')
-    .controller('ChatController', function ($scope, $location, $user, $socket) {
+    })
+    .controller('chatController', function ($scope, $location, $user, $socket) {
         if (!$user.name || !$user.room) {
             $location.path('/');
             return;

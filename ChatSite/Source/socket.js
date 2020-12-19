@@ -1,7 +1,7 @@
 ﻿'use strict';
 var Socket = function (host, options) {
     this.host = host || 'localhost';
-    this.options = options || {};
+    this.options = options || { secure: true };
     this.connection = null;
 
     if (this.host.indexOf(':') < 0) {
