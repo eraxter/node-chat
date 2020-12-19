@@ -1,6 +1,6 @@
 'use strict';
 var fs = require('fs');
-var port = 8081;
+var port = process.env.PORT || 8081;
 var options = {
     transports: ['polling', 'websocket'],
     pingInterval: 10000,
