@@ -8,6 +8,6 @@
     "email": "erikrax@gmail.com"
   },
   "dependencies": {
-    "socket.io": "^4.5.4"
+    "socket.io": "^4.6.1"
   }
 }
