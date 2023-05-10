@@ -22,20 +22,37 @@ angular
         return new Socket(window.location.hostname);
     })
     .controller('mainController', function ($scope, $location, $user, $socket) {
-        var connect = function () {
-            if ($user.name && $user.room) {
+        $('form.needs-validation').on('submit', function (e) {
+            $(this).addClass('was-validated');
+
+            if (!this.checkValidity()) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            else {
                 $location.path('/chat');
             }
-        };
+        });
 
         $scope.user = $user;
-        $scope.connect = connect;
     })
     .controller('chatController', function ($scope, $location, $user, $socket) {
         if (!$user.name || !$user.room) {
             $location.path('/');
             return;
         }
+
+        $('form.needs-validation').on('submit', function (e) {
+            $(this).addClass('was-validated');
+
+            if (!this.checkValidity()) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            else {
+                sendMessage();
+            }
+        });
 
         var connect = function () {
             $user.id = this.id;
@@ -55,7 +72,7 @@ angular
             var name = '';
 
             $.each($scope.users, function () {
-                if (this.id === id) {
+                if (id === this.id) {
                     name = this.name;
                 }
             });
@@ -130,7 +147,6 @@ angular
         $scope.user = $user;
         $scope.users = [];
         $scope.leaveChat = leaveChat;
-        $scope.sendMessage = sendMessage;
 
         $socket.options.query = 'name=' + $user.name + '&room=' + $user.room;
         $socket.open();

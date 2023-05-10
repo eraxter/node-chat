@@ -9,8 +9,8 @@ var options = {
     }
 };
 var server = require('https').createServer({
-    cert: fs.readFileSync('C:/certs/cert.crt'),
-    key: fs.readFileSync('C:/certs/key.pem')
+    cert: fs.readFileSync('./certs/cert.crt'),
+    key: fs.readFileSync('./certs/key.pem')
 });
 var io = require('socket.io')(server, options);
 var clients = [];
