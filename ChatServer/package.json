@@ -7,6 +7,6 @@
     "name": ""
   },
   "dependencies": {
-    "socket.io": "^4.6.1"
+    "socket.io": "^4.7.5"
   }
 }
