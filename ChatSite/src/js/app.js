@@ -5,11 +5,11 @@ angular
         $routeProvider
             .when('/', {
                 controller: 'mainController',
-                templateUrl: '/Content/html/main.html'
+                templateUrl: '/src/html/main.html'
             })
             .when('/chat', {
                 controller: 'chatController',
-                templateUrl: '/Content/html/chat.html'
+                templateUrl: '/src/html/chat.html'
             })
             .otherwise({
                 redirectTo: '/'

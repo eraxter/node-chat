@@ -6,5 +6,4 @@
 node_modules/
 packages/
 ChatServer/certs/
-ChatSite/Content/css/bootstrap*
-ChatSite/Scripts/
+ChatSite/lib/
