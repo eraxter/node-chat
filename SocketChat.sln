@@ -10,8 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "ChatServer", "ChatServer\ChatServer.njsproj", "{2F1A0444-BDD1-43DD-9C60-FA71AF65F9AF}"
-EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ChatSite", "ChatSite\", "{1A5823A9-1DA2-4905-A1F0-CB318799AAFB}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
@@ -33,20 +31,24 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ChatSite", "ChatSite\", "{1
 		SlnRelativePath = "ChatSite\"
 	EndProjectSection
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "ChatServer", "ChatServer\ChatServer.esproj", "{C605ACC2-A6F1-A9CF-E5B9-738323FB4278}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2F1A0444-BDD1-43DD-9C60-FA71AF65F9AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F1A0444-BDD1-43DD-9C60-FA71AF65F9AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F1A0444-BDD1-43DD-9C60-FA71AF65F9AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F1A0444-BDD1-43DD-9C60-FA71AF65F9AF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1A5823A9-1DA2-4905-A1F0-CB318799AAFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A5823A9-1DA2-4905-A1F0-CB318799AAFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A5823A9-1DA2-4905-A1F0-CB318799AAFB}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A5823A9-1DA2-4905-A1F0-CB318799AAFB}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{C605ACC2-A6F1-A9CF-E5B9-738323FB4278}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C605ACC2-A6F1-A9CF-E5B9-738323FB4278}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C605ACC2-A6F1-A9CF-E5B9-738323FB4278}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C605ACC2-A6F1-A9CF-E5B9-738323FB4278}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C605ACC2-A6F1-A9CF-E5B9-738323FB4278}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C605ACC2-A6F1-A9CF-E5B9-738323FB4278}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
