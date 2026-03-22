@@ -5,5 +5,5 @@
 [Oo]bj/
 node_modules/
 packages/
-ChatServer/certs/
-ChatSite/lib/
+certs/
+lib/
